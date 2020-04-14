@@ -1,25 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>cn.hzp</groupId>
-    <artifactId>SpringCloud-Alibaba</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>shop-common</module>
-    </modules>
-
+[TOC]
+## 父工程构建步骤
+### 1 创建maven项目
+### 2 保留pom.xml，删除多余文件
+### 3 修改pom.xml
+- 3.1 增加父工程配置
+```
     <!--父工程-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.3.RELEASE</version>
     </parent>
-
-    <!--依赖版本的锁定-->
+```
+- 3.2 锁定依赖版本
+```
+ <!--依赖版本的锁定-->
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -46,5 +41,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+```
 
-</project>
