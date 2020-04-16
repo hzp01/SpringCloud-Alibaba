@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "shop-user")
+@Entity(name = "shop_user")
 @Data
 public class User {
     /**

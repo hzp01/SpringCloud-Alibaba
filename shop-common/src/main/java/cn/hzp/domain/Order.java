@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "shop-order")
+@Entity(name = "shop_order")
 @Data
 public class Order {
     /**

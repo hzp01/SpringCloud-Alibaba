@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Data
-@Entity(name = "shop-product")
+@Entity(name = "shop_product")
 public class Product {
     /**
      * 主键id，生成方式为自增

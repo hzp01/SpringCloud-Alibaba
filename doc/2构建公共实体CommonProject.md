@@ -26,3 +26,4 @@
     </dependencies>
 ```
 ### 3 在src/main/java下创建cn.hzp.domain包，在该包下创建实体类User、Projduct、Order
+- 注意entity注解里名称对应的是数据库表名称，名称可以包含下划线
