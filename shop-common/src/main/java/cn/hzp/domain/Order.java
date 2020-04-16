@@ -1,6 +1,9 @@
 package cn.hzp.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,9 @@ import javax.persistence.Id;
 
 @Entity(name = "shop_order")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
     /**
      * 主键id，生成方式为自增
