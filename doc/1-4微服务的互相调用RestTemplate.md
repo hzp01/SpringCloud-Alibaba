@@ -1,4 +1,11 @@
 [TOC]
+## 记忆点简述
+```
+启动类中通过@Bean注解加入RestTemplate对象
+在controller中通过@Autowired注解引入RestTemplate对象
+方法中restTemplate.getForObject("远程调用ip地址:端口/方法", 返回的实体对象)
+```
+
 ## 微服务的相互调用
 - 需求说明：下单，订单服务调用商品服务查询库存
 ### 开发步骤

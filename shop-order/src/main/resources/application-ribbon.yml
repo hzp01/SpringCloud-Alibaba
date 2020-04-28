@@ -1,0 +1,4 @@
+# ribbon负载均衡
+service-product:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
