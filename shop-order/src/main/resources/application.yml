@@ -1,5 +1,8 @@
 server:
   port: 8091
+#  # 测试高并发场景，服务雪崩的雏形
+#  tomcat:
+#    max-threads: 10
 spring:
   application:
     name: service-order

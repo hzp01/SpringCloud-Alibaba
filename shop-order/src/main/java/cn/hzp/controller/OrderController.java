@@ -53,6 +53,12 @@ public class OrderController {
                 .build();
         orderService.save(order);
         log.info("下单成功，订单信息为{}", JSON.toJSONString(order));
+//         模拟高并发场景，演示服务雪崩雏形
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return order;
     }
 
@@ -81,5 +87,13 @@ public class OrderController {
             log.info("在nacos基础上采用ribbon方式实现负载均衡获取url:{}", url);
         }
         return url;
+    }
+
+    /**
+     * 模拟服务雪崩的高并发测试方法
+     */
+    @RequestMapping("/order/highConcurrency")
+    public String highConcurrency() {
+        return "测试高并发";
     }
 }
