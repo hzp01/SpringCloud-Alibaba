@@ -123,4 +123,18 @@ public class OrderController {
         orderFlowControlLinkService.flowControlLink();
         return "流控测试：配合测试3种模式（直接、关联、链路）中的关联和链路";
     }
+
+    /**
+     * 服务容错组件sentinel的降级测试：配合测试3种策略（RT平均响应时间、异常比例、异常数）中的异常比例、异常数
+     */
+    int i = 0;
+    @RequestMapping("/sentinel/degrade")
+    public String degrade() {
+        i++;
+        // 此时异常比例为1/3=0.3333……
+        if(i % 3 == 0) {
+            throw new RuntimeException();
+        }
+        return "服务容错组件sentinel的降级测试：配合测试3种策略（RT平均响应时间、异常比例、异常数）中的异常比例、异常数";
+    }
 }
