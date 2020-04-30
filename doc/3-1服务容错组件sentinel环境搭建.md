@@ -9,7 +9,7 @@
 注意：sentinel默认为懒加载模式，需要访问服务后才会加载服务信息
 ## 2 简单演示
 ### 2.1 启动控制台
-访问`localhost:8080`默认用户名和密码都是sentinel
+所需jar包在tools文件夹下，测试访问`localhost:8080`默认用户名和密码都是sentinel
 ```
 // linux系统下的启动命令
 java -Dserver.port=8080 \
