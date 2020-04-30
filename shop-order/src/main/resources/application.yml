@@ -8,4 +8,4 @@ spring:
     name: service-order
   profiles:
     include:
-      datasource, jpa, nacos, ribbon
+      datasource, jpa, nacos, sentinel

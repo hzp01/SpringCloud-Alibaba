@@ -1,0 +1,6 @@
+# 实现流控规则中的链路功能，关闭sentinel的CommonFilter实例化
+spring:
+  cloud:
+    sentinel:
+      filter:
+        enabled: false

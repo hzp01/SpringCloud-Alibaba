@@ -4,6 +4,7 @@ import cn.hzp.domain.Order;
 import cn.hzp.domain.Product;
 import cn.hzp.service.OrderService;
 import cn.hzp.service.ProductService;
+import cn.hzp.service.impl.OrderFlowControlLinkServiceImpl;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -31,6 +34,9 @@ public class OrderController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private OrderFlowControlLinkServiceImpl orderFlowControlLinkService;
 
     @RequestMapping("/order/product/{pid}")
     public Order createOrder(@PathVariable Integer pid) {
@@ -90,10 +96,31 @@ public class OrderController {
     }
 
     /**
-     * 模拟服务雪崩的高并发测试方法
+     * 服务容错：模拟服务雪崩的高并发测试方法
      */
-    @RequestMapping("/order/highConcurrency")
+    @RequestMapping("/sentinel/highConcurrency")
     public String highConcurrency() {
         return "测试高并发";
+    }
+
+    /**
+     * 服务容错组件sentinel的流控测试：3种模式（直接、关联、链路）
+     */
+    @RequestMapping("/sentinel/flow1")
+    public String flow1() {
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss:SSS");
+        log.info("start：{}", sdf.format(new Date()));
+        orderFlowControlLinkService.flowControlLink();
+        log.info("end：{}", sdf.format(new Date()));
+        return "流控测试：3种模式（直接、关联、链路）";
+    }
+
+    /**
+     * 服务容错组件sentinel的流控测试：配合测试3种模式（直接、关联、链路）中的关联和链路
+     */
+    @RequestMapping("/sentinel/flow2")
+    public String flow2() {
+        orderFlowControlLinkService.flowControlLink();
+        return "流控测试：配合测试3种模式（直接、关联、链路）中的关联和链路";
     }
 }
