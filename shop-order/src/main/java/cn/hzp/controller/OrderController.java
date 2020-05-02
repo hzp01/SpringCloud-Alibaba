@@ -1,10 +1,13 @@
 package cn.hzp.controller;
 
+import cn.hzp.Exception.MyBlockHandler;
 import cn.hzp.domain.Order;
 import cn.hzp.domain.Product;
 import cn.hzp.service.OrderService;
 import cn.hzp.service.ProductService;
 import cn.hzp.service.impl.OrderFlowControlLinkServiceImpl;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,13 +131,49 @@ public class OrderController {
      * 服务容错组件sentinel的降级测试：配合测试3种策略（RT平均响应时间、异常比例、异常数）中的异常比例、异常数
      */
     int i = 0;
+
     @RequestMapping("/sentinel/degrade")
     public String degrade() {
         i++;
         // 此时异常比例为1/3=0.3333……
-        if(i % 3 == 0) {
+        if (i % 3 == 0) {
             throw new RuntimeException();
         }
         return "服务容错组件sentinel的降级测试：配合测试3种策略（RT平均响应时间、异常比例、异常数）中的异常比例、异常数";
+    }
+
+    /**
+     * 服务容错组件sentinel的热点参数限流规则测试
+     */
+    @RequestMapping("/sentinel/hot")
+    @SentinelResource("hot")
+    public String hot(Integer productId, Integer userId, String otherParams) {
+        log.info("防止一个ip多次下单或者恶意查询等操作，限制热点参数的qps值，如商品id：{}，用户id：｛｝", productId, userId);
+        return "服务容错组件sentinel的热点参数限流规则测试";
+    }
+
+    /**
+     * 服务容错组件sentinel-演示sentinelResource属性
+     */
+    int m = 0;
+
+    @RequestMapping("/sentinel/sentinelResource")
+    @SentinelResource(value = "resourceName",
+            blockHandlerClass = MyBlockHandler.class,
+            // 这里blockHandler方法必须为静态方法
+            blockHandler = "blockHandler",
+            fallback = "fallback")
+    public String sentinelResource(String name) {
+        log.info("进入sentinelResource注解测试,参数name={}", name);
+        m++;
+        if (m % 3 == 0) {
+            throw new RuntimeException("fallback异常");
+        }
+        return "服务容错组件sentinel中注解sentinel属性的使用演示";
+    }
+
+    public String fallback(String name, Throwable e){
+        log.info("进入sentinelResource注解测试,进入fallback，参数name={},b={}", name, e.toString());
+        return "fallback";
     }
 }
