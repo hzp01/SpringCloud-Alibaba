@@ -51,6 +51,14 @@ public class OrderController {
         Product product = productService.findByPid(pid);
         log.info("库存查询结果为:{}", JSON.toJSONString(product));
 
+        // 远程调用失败进入熔断
+        if (product.getPid() == -1) {
+            return Order.builder()
+                    .oid(-1)
+                    .pname("下单失败")
+                    .build();
+        }
+
         /*****  下单 *****/
         log.info("下单操作，开始进行下单");
         Order order = Order.builder()

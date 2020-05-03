@@ -1,0 +1,29 @@
+# 服务基础配置
+server:
+  port: 7000
+spring:
+  application:
+    name: api-gateway
+  # 网关配置
+  cloud:
+    # 增加nacos配置信息
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      # 使gateway可以读取nacos中服务信息
+      discovery:
+        locator:
+          enabled: true
+      # 路由数组，支持多个路由，路由配置参照RouteDefinition
+      routes:
+        - id: route-product # 路由标识
+#          uri: http://localhost:8081 # 要转发到的远程服务地址
+          uri: lb://service-product # lb支持负载均衡(loadBalance)
+          order: 0 # 排序，数字越小优先级越高
+          predicates: #断言数组，满足条件实现转发，支持自定义断言
+            - Path=/product-serv/**
+#            - Age=18,60 #自定义断言，实现服务只能被18-60岁之间的人访问
+          filters: #过滤数组，转发前服务处理，支持前置过滤和后置过滤，支持自定义过滤（局部过滤、全局过滤）
+            - StripPrefix=1 # 转发前去掉一层访问路径
+#            - Log=true, false # 自定义过滤，控制日志输出

@@ -1,6 +1,7 @@
 [TOC]
 ## 1 sentinel流控规则持久化到nacos示例
-参考网址：`http://www.itmuch.com/spring-cloud-alibaba/sentinel-rules-persistence-push-mode-using-nacos/`
+参考网址1：`http://www.itmuch.com/spring-cloud-alibaba/sentinel-rules-persistence-push-mode-using-nacos/`
+参考网址2：`https://www.sonake.com/2019/12/16/Sentinel-Nacos%E5%AE%9E%E7%8E%B0%E8%A7%84%E5%88%99%E6%8C%81%E4%B9%85%E5%8C%96/`
 ### 1.1 order服务的pom文件加入依赖
 ```
         <!--添加sentinel持久化到nacos的依赖-->

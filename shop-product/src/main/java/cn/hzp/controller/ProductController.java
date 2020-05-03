@@ -23,4 +23,34 @@ public class ProductController {
         log.info("查询成功，商品信息为：{}", JSON.toJSONString(product));
         return product;
     }
+
+    /**
+     * 测试gateway的api分组限流
+     */
+    @RequestMapping("/api1/demo1")
+    public String api1Demo1() {
+        return "/api1/demo1";
+    }
+    /**
+     * 测试gateway的api分组限流
+     */
+    @RequestMapping("/api1/demo2")
+    public String api1Demo2() {
+        return "/api1/demo2";
+    }
+    /**
+     * 测试gateway的api分组限流
+     */
+    @RequestMapping("/api2/demo1")
+    public String api2Demo1() {
+        return "/api2/demo1";
+    }
+    /**
+     * 测试gateway的api分组限流
+     */
+    @RequestMapping("/api2/demo2")
+    public String api2Demo2() {
+        return "/api2/demo2";
+    }
+
 }
