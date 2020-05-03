@@ -26,4 +26,6 @@ spring:
 #            - Age=18,60 #自定义断言，实现服务只能被18-60岁之间的人访问
           filters: #过滤数组，转发前服务处理，支持前置过滤和后置过滤，支持自定义过滤（局部过滤、全局过滤）
             - StripPrefix=1 # 转发前去掉一层访问路径
-#            - Log=true, false # 自定义过滤，控制日志输出
+    #            - Log=true, false # 自定义过滤，控制日志输出
+  profiles:
+    include: zipkinSleuth

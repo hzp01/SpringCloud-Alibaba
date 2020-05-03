@@ -52,4 +52,17 @@
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <!--链路追踪sleuth监控各节点服务信息-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        <!-- 链路追踪zipkin依赖，收集存储显示sleuth信息-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

@@ -5,4 +5,4 @@ spring:
     name: service-product
   profiles:
     include:
-      datasource, jpa, nacos
+      datasource, jpa, nacos, zipkinSleuth
