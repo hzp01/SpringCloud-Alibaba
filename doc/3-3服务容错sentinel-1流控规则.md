@@ -81,5 +81,3 @@ public class OrderFlowControlLinkServiceImpl {
     }
 ```
 ### 2.6 控制台可以对资源resource增加链路控制，入口资源可以为flow1或flow2，进行测试验证。
-
-

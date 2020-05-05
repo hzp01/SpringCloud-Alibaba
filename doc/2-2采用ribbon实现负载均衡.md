@@ -23,5 +23,3 @@ service-product:
 |com.netflix.loadbalancer.BestAvailableRule|选择并发较小的实例|
 |com.netflix.loadbalancer.AvailabilityFilteringRule|先过滤掉故障实例，再选择并发较小的实例|
 |com.netflix.loadbalancer.ZoneAwareLoadBalancer|采用双重过滤，同时过滤不是同一区域的实例和故障实例，选择并发较小的实例|
-```
-

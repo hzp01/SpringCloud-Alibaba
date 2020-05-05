@@ -36,5 +36,3 @@ public interface ProductService {
     
     ....{ Product product = productService.findByPid(pid); ....}
 ```
-
-

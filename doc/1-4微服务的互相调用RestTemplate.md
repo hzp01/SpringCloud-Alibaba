@@ -34,4 +34,3 @@ insert into `shop_product` (`pid`, `pname`, `pprice`, `stock`) values('3','è‹¹æž
                 Product.class
         );
 ```
-

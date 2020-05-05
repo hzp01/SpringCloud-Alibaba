@@ -49,5 +49,3 @@ spring:
 ```
 ### 2.4 验证
 浏览器访问order服务任意方法，可以在sentinel控制台看到order服务信息
-
-

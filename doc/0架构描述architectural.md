@@ -17,7 +17,7 @@ maven：3.6.0
         sleuth链路信息收集
             zipkin提供界面支持，sleuth收集的链路信息通过zipkin展示
         分布式事务seata
-    消息队列RocketMQ
+    消息队列RocketMQ4.4.0
 ```
 ## 2 模块设计
 ```
@@ -27,4 +27,3 @@ shop-user           用户微服务【端口：807x】
 shop-product        商品微服务【端口：808x】
 shop-order          订单微服务【端口：809x】
 ```
-
