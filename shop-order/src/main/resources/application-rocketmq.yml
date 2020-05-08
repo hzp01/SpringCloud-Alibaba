@@ -1,0 +1,6 @@
+rocketmq:
+  # rocketmq服务地址
+  name-server: 192.168.149.11:9876
+  # 生产者组
+  producer:
+    group: shop-order

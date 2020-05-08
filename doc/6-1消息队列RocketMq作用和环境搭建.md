@@ -50,3 +50,14 @@ export NAMESRV_ADDR=localhost:9876
 ./mqshutdown broker 
 ./mqshutdown namesrv
 ```
+
+# 3 rocketMq控制台安装
+- 1 下载`https://github.com/apache/rocketmq-externals/releases`,选择console下载
+- 2 修改启动类rocketmq-console\src\main\resources\application.properties
+```
+server.port=7777
+rocketmq.config.namesrvAddr=192.168.149.11:9876
+```
+- 3 编译jar包，执行`mvn clean package -Dmaven.test.skip=true`
+- 4 上传到vm的/usr/local/src下，启动`java -jar r-xx.jar`
+- 5 测试，浏览器访问`http://192.168.149.11:7777`

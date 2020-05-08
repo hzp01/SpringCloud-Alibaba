@@ -7,12 +7,14 @@ import cn.hzp.service.OrderService;
 import cn.hzp.service.ProductService;
 import cn.hzp.service.impl.OrderFlowControlLinkServiceImpl;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.producer.TransactionSendResult;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 @RestController
 @Slf4j
@@ -40,6 +43,9 @@ public class OrderController {
 
     @Autowired
     private OrderFlowControlLinkServiceImpl orderFlowControlLinkService;
+
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
 
     @RequestMapping("/order/product/{pid}")
     public Order createOrder(@PathVariable Integer pid) {
@@ -70,6 +76,10 @@ public class OrderController {
                 .build();
         orderService.save(order);
         log.info("下单成功，订单信息为{}", JSON.toJSONString(order));
+
+        // 演示业务，下单成功后发送消息
+        rocketMQTemplate.convertAndSend("orderTopic", order);
+
 //         模拟高并发场景，演示服务雪崩雏形
 //        try {
 //            Thread.sleep(2000);
@@ -77,6 +87,30 @@ public class OrderController {
 //            e.printStackTrace();
 //        }
         return order;
+    }
+
+    /**
+     * 测试mq的事务消息
+     * - 1 向mq服务端发送半事务消息，mq服务端回应消息接收情况
+     * - 2 执行本地事务下单操作，结果通知mq服务端，成功commit失败rollback
+     * - 3 mq服务端没有收到通知，回查本地事务，成功commit失败rollback
+     */
+    @RequestMapping("/order/testMQ")
+    public TransactionSendResult testRocketMQ(){
+        Order order = Order.builder()
+                .pid(1)
+                .uid(1).uname("测试用户")
+                .number(1)
+                .build();
+        // 演示，半事务消息,这里发送半事务消息，可以放在单独service操作
+        UUID uuid = UUID.randomUUID();
+        TransactionSendResult transactionSendResult = rocketMQTemplate.sendMessageInTransaction(
+                "txProducerGroup",
+                "topicTransaction:tagOrder",
+                MessageBuilder.withPayload(order).setHeader("txId", uuid).build(),
+                order);
+        log.info("发送事务消息，结果为{}", transactionSendResult);
+        return transactionSendResult;
     }
 
     /**
@@ -180,7 +214,7 @@ public class OrderController {
         return "服务容错组件sentinel中注解sentinel属性的使用演示";
     }
 
-    public String fallback(String name, Throwable e){
+    public String fallback(String name, Throwable e) {
         log.info("进入sentinelResource注解测试,进入fallback，参数name={},b={}", name, e.toString());
         return "fallback";
     }
