@@ -37,6 +37,10 @@
             <artifactId>rocketmq-client</artifactId>
             <version>4.4.0</version>
         </dependency>
+        <!--nacos配置中心功能-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
     </dependencies>
-
 </project>

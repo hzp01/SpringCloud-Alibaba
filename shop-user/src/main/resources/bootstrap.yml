@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: service-user
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        # 配置文件格式，这里不要写成yml
+        file-extension: yaml
+        # 引入的其他配置，这里不要写成yaml
+        shared-dataids: datasource.yml
+        # 配置动态刷新，这里不要写成yaml
+        refreshable-dataids: datasource.yml
+  profiles:
+    # 环境标识
+    active: dev

@@ -61,4 +61,3 @@ export PATH=${JAVA_HOME}/bin:$PATH
     - 主机测试vm`telnet 192.168.149.11 9876`
     - 查询暴漏端口，略
 注：这里直接关闭防火墙：`systemctl disable firewalld.service` 
-
